@@ -2,6 +2,7 @@ import axios from "axios";
 axios.defaults.headers.common["x-api-key"] = "live_VBUYHXz7Q24qLtczeNmH3mY1zn6XWyGj8JQzbwBXGW09MKCKIHVxJERafv6u1WBB";
 
 const select = document.querySelector('.breed-select');
+const container = document.querySelector('.breed-select');
 
 // 1)Колекція порід
 // Винеси її у файл cat-api.js та зроби іменований експорт.
@@ -40,9 +41,19 @@ function fetchCatByBreed(breedId) {
     .then(response => {
         return response.json();
     }).then(cat => {
-        console.log(cat);
+        renderCard(cat)
     }).catch(error => {
             console.log(error);
         })
 };
+
+function renderCard(result) {
+    console.log(result);
+    const cardMarkup = `
+<img src="" alt="">
+<h1><p></p></h1>
+<h2><p></p></h2>
+    `;
+    container.insertAdjacentHTML("beforeend", cardMarkup);
+}
 

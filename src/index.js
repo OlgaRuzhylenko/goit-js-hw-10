@@ -1,13 +1,18 @@
-import axios from "axios";
-axios.defaults.headers.common["x-api-key"] = "live_VBUYHXz7Q24qLtczeNmH3mY1zn6XWyGj8JQzbwBXGW09MKCKIHVxJERafv6u1WBB";
+// import axios from "axios";
+// axios.defaults.headers.common["x-api-key"] = "live_VBUYHXz7Q24qLtczeNmH3mY1zn6XWyGj8JQzbwBXGW09MKCKIHVxJERafv6u1WBB";
 
 const select = document.querySelector('.breed-select');
-const container = document.querySelector('.breed-select');
-
+const container = document.querySelector('.cat-info');
+console.log(container);
+const options = {
+    headers: {
+        "x-api-key": "live_VBUYHXz7Q24qLtczeNmH3mY1zn6XWyGj8JQzbwBXGW09MKCKIHVxJERafv6u1WBB"
+    }
+}
 // 1)Колекція порід
 // Винеси її у файл cat-api.js та зроби іменований експорт.
 function fetchBreeds() {
-    fetch('https://api.thecatapi.com/v1/breeds')
+    fetch('https://api.thecatapi.com/v1/breeds', options)
         .then(response => {
             return response.json();
         })
@@ -37,7 +42,7 @@ function onSelectChange(evt) {
  };
 
 function fetchCatByBreed(breedId) {
-    fetch(`https://api.thecatapi.com/v1/images/search?${breedId}`) 
+    fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`, options) 
     .then(response => {
         return response.json();
     }).then(cat => {
@@ -49,11 +54,15 @@ function fetchCatByBreed(breedId) {
 
 function renderCard(result) {
     console.log(result);
+    const cat = result[0];
     const cardMarkup = `
-<img src="" alt="">
-<h1><p></p></h1>
-<h2><p></p></h2>
+<img src="${cat.url}" alt="${cat.breeds[0].name}">
+<h1>${cat.breeds[0].name}</h1>
+<p>${cat.breeds[0].description}</p>
+<h2>Temperament:</h2>
+<p>${cat.breeds[0].temperament}</p>
     `;
+    console.log(cardMarkup);
     container.insertAdjacentHTML("beforeend", cardMarkup);
 }
 

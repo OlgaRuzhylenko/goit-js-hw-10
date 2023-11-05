@@ -3,7 +3,10 @@
 
 const select = document.querySelector('.breed-select');
 const container = document.querySelector('.cat-info');
-console.log(container);
+const loadingTextfInfo = document.querySelector('.loader');
+const errorText = document.querySelector('.error');
+console.log(errorText);
+
 const options = {
     headers: {
         "x-api-key": "live_VBUYHXz7Q24qLtczeNmH3mY1zn6XWyGj8JQzbwBXGW09MKCKIHVxJERafv6u1WBB"
@@ -11,21 +14,28 @@ const options = {
 }
 // 1)Колекція порід
 // Винеси її у файл cat-api.js та зроби іменований експорт.
+errorText.classList.add('hide');
 function fetchBreeds() {
+   
+    select.classList.add('hide');
+    
     fetch('https://api.thecatapi.com/v1/breeds', options)
         .then(response => {
             return response.json();
         })
         .then(breeds => {
-              
+            select.classList.remove('hide');
             const markup = breeds.map(breed => `
                 <option value="${breed.id}">${breed.name}</option>
             `).join('');
             select.insertAdjacentHTML("beforeend", markup);
+            loadingTextfInfo.classList.add('hide');
         })
         .catch(error => {
-            console.log(error);
-        })
+            loadingTextfInfo.classList.add('hide');
+            select.classList.add('hide');
+            errorText.classList.remove('hide');            
+        });
 };
 fetchBreeds();
 
@@ -38,6 +48,8 @@ select.addEventListener('change', onSelectChange);
 function onSelectChange(evt) {
    const selectedBreed = evt.target.value;
     console.log(selectedBreed);
+loadingTextfInfo.classList.remove('hide');
+ select.classList.add('hide');
 
     fetchCatByBreed(selectedBreed);
  };
@@ -49,10 +61,13 @@ container.innerHTML = ''
     .then(response => {
         return response.json();
     }).then(cat => {
-        
-        renderCard(cat)
+        select.classList.remove('hide');
+        renderCard(cat);
+        loadingTextfInfo.classList.add('hide');
     }).catch(error => {
-            console.log(error);
+            loadingTextfInfo.classList.add('hide');
+            select.classList.add('hide');
+            errorText.classList.remove('hide');   
         })
 };
 

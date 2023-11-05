@@ -1,11 +1,15 @@
 // import axios from "axios";
 // axios.defaults.headers.common["x-api-key"] = "live_VBUYHXz7Q24qLtczeNmH3mY1zn6XWyGj8JQzbwBXGW09MKCKIHVxJERafv6u1WBB";
 
+// import SlimSelect from 'slim-select';
+// new SlimSelect({
+//   select: '#selectElement'
+// })
+
 const select = document.querySelector('.breed-select');
 const container = document.querySelector('.cat-info');
 const loadingTextfInfo = document.querySelector('.loader');
 const errorText = document.querySelector('.error');
-console.log(errorText);
 
 const options = {
     headers: {
@@ -47,7 +51,7 @@ select.addEventListener('change', onSelectChange);
 
 function onSelectChange(evt) {
    const selectedBreed = evt.target.value;
-    console.log(selectedBreed);
+    // console.log(selectedBreed);
 loadingTextfInfo.classList.remove('hide');
  select.classList.add('hide');
 
@@ -72,18 +76,18 @@ container.innerHTML = ''
 };
 
 function renderCard(result) {
-   
-    console.log(result);
+    // console.log(result);
     const cat = result[0];
-   
     const cardMarkup = `
-<img src="${cat.url}" alt="${cat.breeds[0].name}">
+<img src="${cat.url}" alt="${cat.breeds[0].name}" width="300" heigth="300">
 <h1>${cat.breeds[0].name}</h1>
 <p>${cat.breeds[0].description}</p>
 <h2>Temperament:</h2>
 <p>${cat.breeds[0].temperament}</p>
     `;
-    console.log(cardMarkup);
+    // console.log(cardMarkup);
     container.insertAdjacentHTML("beforeend", cardMarkup);
-}
+};
+
+
 

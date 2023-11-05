@@ -16,7 +16,8 @@ function fetchBreeds() {
         .then(response => {
             return response.json();
         })
-            .then(breeds => {
+        .then(breeds => {
+              
             const markup = breeds.map(breed => `
                 <option value="${breed.id}">${breed.name}</option>
             `).join('');
@@ -42,10 +43,13 @@ function onSelectChange(evt) {
  };
 
 function fetchCatByBreed(breedId) {
+container.innerHTML = ''
+
     fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`, options) 
     .then(response => {
         return response.json();
     }).then(cat => {
+        
         renderCard(cat)
     }).catch(error => {
             console.log(error);
@@ -53,8 +57,10 @@ function fetchCatByBreed(breedId) {
 };
 
 function renderCard(result) {
+   
     console.log(result);
     const cat = result[0];
+   
     const cardMarkup = `
 <img src="${cat.url}" alt="${cat.breeds[0].name}">
 <h1>${cat.breeds[0].name}</h1>

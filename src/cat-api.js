@@ -1,6 +1,11 @@
+const options = {
+    headers: {
+        "x-api-key": "live_VBUYHXz7Q24qLtczeNmH3mY1zn6XWyGj8JQzbwBXGW09MKCKIHVxJERafv6u1WBB"
+    }
+}
 
 export function fetchBreeds() {
-select.classList.add('hide');
+// select.classList.add('hide');
     return fetch('https://api.thecatapi.com/v1/breeds', options)
         .then(response => {
             return response.json();
@@ -8,7 +13,6 @@ select.classList.add('hide');
 };
 
 export function fetchCatByBreed(breedId) {
-container.innerHTML = ''
     return fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`, options) 
     .then(response => {
         return response.json();

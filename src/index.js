@@ -1,15 +1,17 @@
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
+import SlimSelect from 'slim-select'
 
 const select = document.querySelector('.breed-select');
+select.classList.add('hide');
 const container = document.querySelector('.cat-info');
 const loadingTextfInfo = document.querySelector('.loader');
 const errorText = document.querySelector('.error');
 
-const options = {
-    headers: {
-        "x-api-key": "live_VBUYHXz7Q24qLtczeNmH3mY1zn6XWyGj8JQzbwBXGW09MKCKIHVxJERafv6u1WBB"
-    }
-}
+// const options = {
+//     headers: {
+//         "x-api-key": "live_VBUYHXz7Q24qLtczeNmH3mY1zn6XWyGj8JQzbwBXGW09MKCKIHVxJERafv6u1WBB"
+//     }
+// }
 // 1)Колекція порід
 // Винеси її у файл cat-api.js та зроби іменований експорт.
 fetchBreeds()
@@ -36,6 +38,9 @@ select.classList.remove('hide');
     const markup = breeds.map(breed => `
                 <option value="${breed.id}">${breed.name}</option>
             `).join('');
+    new SlimSelect({
+  select: '#selectElement'
+})
     select.insertAdjacentHTML("beforeend", markup);
     loadingTextfInfo.classList.add('hide');
 }
@@ -43,12 +48,14 @@ select.classList.remove('hide');
 // 2) Інформація про кота
 select.addEventListener('change', onSelectChange); 
 function onSelectChange(evt) {
+    container.innerHTML = '';
     const selectedBreed = evt.target.value;
     loadingTextfInfo.classList.remove('hide');
     select.classList.add('hide');
 
     fetchCatByBreed(selectedBreed)
-    .then(cat => {
+        .then(cat => {
+        
         select.classList.remove('hide');
         renderCard(cat);
         loadingTextfInfo.classList.add('hide');

@@ -1,10 +1,4 @@
-// import axios from "axios";
-// axios.defaults.headers.common["x-api-key"] = "live_VBUYHXz7Q24qLtczeNmH3mY1zn6XWyGj8JQzbwBXGW09MKCKIHVxJERafv6u1WBB";
-
-// import SlimSelect from 'slim-select';
-// new SlimSelect({
-//   select: '#selectElement'
-// })
+import { fetchBreeds, fetchCatByBreed } from './cat-api';
 
 const select = document.querySelector('.breed-select');
 const container = document.querySelector('.cat-info');
@@ -28,13 +22,13 @@ fetchBreeds()
 
 errorText.classList.add('hide');
 
-function fetchBreeds() {
-select.classList.add('hide');
-    return fetch('https://api.thecatapi.com/v1/breeds', options)
-        .then(response => {
-            return response.json();
-        })
-};
+// function fetchBreeds() {
+// select.classList.add('hide');
+//     return fetch('https://api.thecatapi.com/v1/breeds', options)
+//         .then(response => {
+//             return response.json();
+//         })
+// };
 
 //додавання option в select окремою функцією
 function renderSelect(breeds) {
@@ -65,13 +59,13 @@ function onSelectChange(evt) {
         })
  };
 // Винеси функцію fetchCatByBreed(breedId) у файл cat-api.js і зроби іменований експорт.
-function fetchCatByBreed(breedId) {
-container.innerHTML = ''
-    return fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`, options) 
-    .then(response => {
-        return response.json();
-    });
-};
+// function fetchCatByBreed(breedId) {
+// container.innerHTML = ''
+//     return fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`, options) 
+//     .then(response => {
+//         return response.json();
+//     });
+// };
 
 //функція відмальовки картки кота
 function renderCard(result) {

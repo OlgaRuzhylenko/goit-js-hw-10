@@ -18,53 +18,43 @@ const options = {
 }
 // 1)Колекція порід
 // Винеси її у файл cat-api.js та зроби іменований експорт.
-errorText.classList.add('hide');
-function fetchBreeds() {
-   
-    select.classList.add('hide');
-    
-    fetch('https://api.thecatapi.com/v1/breeds', options)
-        .then(response => {
-            return response.json();
-        })
-        .then(breeds => {
-            select.classList.remove('hide');
-            const markup = breeds.map(breed => `
-                <option value="${breed.id}">${breed.name}</option>
-            `).join('');
-            select.insertAdjacentHTML("beforeend", markup);
-            loadingTextfInfo.classList.add('hide');
-        })
+fetchBreeds()
+    .then(renderSelect)
         .catch(error => {
             loadingTextfInfo.classList.add('hide');
             select.classList.add('hide');
-            errorText.classList.remove('hide');            
+            errorText.classList.remove('hide');
         });
+
+errorText.classList.add('hide');
+
+function fetchBreeds() {
+select.classList.add('hide');
+    return fetch('https://api.thecatapi.com/v1/breeds', options)
+        .then(response => {
+            return response.json();
+        })
 };
-fetchBreeds();
+
+//додавання option в select окремою функцією
+function renderSelect(breeds) {
+select.classList.remove('hide');
+    const markup = breeds.map(breed => `
+                <option value="${breed.id}">${breed.name}</option>
+            `).join('');
+    select.insertAdjacentHTML("beforeend", markup);
+    loadingTextfInfo.classList.add('hide');
+}
 
 // 2) Інформація про кота
-// https://api.thecatapi.com/v1/images/search
-// https://api.thecatapi.com/v1/images/search?breed_ids=ідентифікатор_породи
-
 select.addEventListener('change', onSelectChange); 
-
 function onSelectChange(evt) {
-   const selectedBreed = evt.target.value;
-    // console.log(selectedBreed);
-loadingTextfInfo.classList.remove('hide');
- select.classList.add('hide');
+    const selectedBreed = evt.target.value;
+    loadingTextfInfo.classList.remove('hide');
+    select.classList.add('hide');
 
-    fetchCatByBreed(selectedBreed);
- };
-
-function fetchCatByBreed(breedId) {
-container.innerHTML = ''
-
-    fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`, options) 
-    .then(response => {
-        return response.json();
-    }).then(cat => {
+    fetchCatByBreed(selectedBreed)
+    .then(cat => {
         select.classList.remove('hide');
         renderCard(cat);
         loadingTextfInfo.classList.add('hide');
@@ -73,10 +63,18 @@ container.innerHTML = ''
             select.classList.add('hide');
             errorText.classList.remove('hide');   
         })
+ };
+// Винеси функцію fetchCatByBreed(breedId) у файл cat-api.js і зроби іменований експорт.
+function fetchCatByBreed(breedId) {
+container.innerHTML = ''
+    return fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`, options) 
+    .then(response => {
+        return response.json();
+    });
 };
 
+//функція відмальовки картки кота
 function renderCard(result) {
-    // console.log(result);
     const cat = result[0];
     const cardMarkup = `
 <img src="${cat.url}" alt="${cat.breeds[0].name}" width="300" heigth="300">
@@ -85,7 +83,7 @@ function renderCard(result) {
 <h2>Temperament:</h2>
 <p>${cat.breeds[0].temperament}</p>
     `;
-    // console.log(cardMarkup);
+  
     container.insertAdjacentHTML("beforeend", cardMarkup);
 };
 

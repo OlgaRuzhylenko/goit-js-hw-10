@@ -1,19 +1,16 @@
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
-import SlimSelect from 'slim-select'
+import SlimSelect from 'slim-select';
+import 'slim-select/dist/slimselect.css';
+
 
 const select = document.querySelector('.breed-select');
+select.setAttribute('id', 'selectElement')
 select.classList.add('hide');
 const container = document.querySelector('.cat-info');
 const loadingTextfInfo = document.querySelector('.loader');
 const errorText = document.querySelector('.error');
 
-// const options = {
-//     headers: {
-//         "x-api-key": "live_VBUYHXz7Q24qLtczeNmH3mY1zn6XWyGj8JQzbwBXGW09MKCKIHVxJERafv6u1WBB"
-//     }
-// }
 // 1)Колекція порід
-// Винеси її у файл cat-api.js та зроби іменований експорт.
 fetchBreeds()
     .then(renderSelect)
         .catch(error => {
@@ -24,26 +21,25 @@ fetchBreeds()
 
 errorText.classList.add('hide');
 
-// function fetchBreeds() {
-// select.classList.add('hide');
-//     return fetch('https://api.thecatapi.com/v1/breeds', options)
-//         .then(response => {
-//             return response.json();
-//         })
-// };
-
 //додавання option в select окремою функцією
 function renderSelect(breeds) {
 select.classList.remove('hide');
     const markup = breeds.map(breed => `
                 <option value="${breed.id}">${breed.name}</option>
             `).join('');
-    new SlimSelect({
-  select: '#selectElement'
-})
+  
     select.insertAdjacentHTML("beforeend", markup);
     loadingTextfInfo.classList.add('hide');
-}
+    
+    new SlimSelect({
+    select: '#selectElement',
+    settings: {
+    searchPlaceholder: 'Search',
+    searchHighlight: true
+  }
+})
+
+};
 
 // 2) Інформація про кота
 select.addEventListener('change', onSelectChange); 
@@ -65,14 +61,6 @@ function onSelectChange(evt) {
             errorText.classList.remove('hide');   
         })
  };
-// Винеси функцію fetchCatByBreed(breedId) у файл cat-api.js і зроби іменований експорт.
-// function fetchCatByBreed(breedId) {
-// container.innerHTML = ''
-//     return fetch(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`, options) 
-//     .then(response => {
-//         return response.json();
-//     });
-// };
 
 //функція відмальовки картки кота
 function renderCard(result) {

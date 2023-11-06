@@ -1,3 +1,31 @@
 .hide{
     display: none;
 }
+.breed-select {
+    margin-bottom: 50px;
+}
+body {
+    background-color: #E6E6FA;
+}
+.img-style {
+    margin: 0 auto;
+    width: 300px;
+    height: auto;
+}
+.cat-info {
+    display: flex;
+    flex-direction: column;  
+}
+.name-style {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: Agbalumo, sans-serif;
+}
+.temp-style {
+    font-family: Agbalumo, sans-serif;
+    margin-top: 0;
+     margin-bottom: 0;
+}
+.desc-style {
+    font-family: Alata, sans-serif;
+}

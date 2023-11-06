@@ -66,11 +66,11 @@ function onSelectChange(evt) {
 function renderCard(result) {
     const cat = result[0];
     const cardMarkup = `
-<img src="${cat.url}" alt="${cat.breeds[0].name}" width="300" heigth="300">
-<h1>${cat.breeds[0].name}</h1>
-<p>${cat.breeds[0].description}</p>
-<h2>Temperament:</h2>
-<p>${cat.breeds[0].temperament}</p>
+<img src="${cat.url}" alt="${cat.breeds[0].name}" class="img-style" width="600" >
+<h1 class='name-style'>${cat.breeds[0].name}</h1>
+<p class='desc-style'>${cat.breeds[0].description}</p>
+<h2 class='temp-style'>Temperament:</h2>
+<p class='desc-style'>${cat.breeds[0].temperament}</p>
     `;
   
     container.insertAdjacentHTML("beforeend", cardMarkup);

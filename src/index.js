@@ -10,6 +10,7 @@ const container = document.querySelector('.cat-info');
 const loadingTextfInfo = document.querySelector('.loader');
 const errorText = document.querySelector('.error');
 
+
 // 1)Колекція порід
 fetchBreeds()
     .then(renderSelect)

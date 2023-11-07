@@ -56,7 +56,8 @@ function onSelectChange(evt) {
         .then(cat => {
         select.classList.remove('hide');
         renderCard(cat);
-        loadingTextfInfo.classList.add('hide');
+            loadingTextfInfo.classList.add('hide');
+            errorText.classList.add('hide'); 
     }).catch(error => {
             loadingTextfInfo.classList.add('hide');
             select.classList.add('hide');

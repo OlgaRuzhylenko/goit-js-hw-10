@@ -49,6 +49,7 @@ function onSelectChange(evt) {
     const selectedBreed = evt.target.value;
     loadingTextfInfo.classList.remove('hide');
     select.classList.add('hide');
+    errorText.classList.add('hide');
 
     fetchCatByBreed(selectedBreed)
         .then(cat => {

@@ -44,6 +44,7 @@ select.classList.remove('hide');
 
 // 2) Інформація про кота
 select.addEventListener('change', onSelectChange); 
+
 function onSelectChange(evt) {
     container.innerHTML = '';
     const selectedBreed = evt.target.value;
@@ -53,7 +54,6 @@ function onSelectChange(evt) {
 
     fetchCatByBreed(selectedBreed)
         .then(cat => {
-        
         select.classList.remove('hide');
         renderCard(cat);
         loadingTextfInfo.classList.add('hide');

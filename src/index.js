@@ -17,7 +17,7 @@ fetchBreeds()
         .catch(error => {
             loadingTextfInfo.classList.add('hide');
             select.classList.add('hide');
-            errorText.classList.remove('hide');
+            // errorText.classList.remove('hide');
         });
 
 errorText.classList.add('hide');
